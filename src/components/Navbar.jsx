@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { FiMenu, FiX, FiMoon, FiSun } from "react-icons/fi";
-// Import useDarkMode dari path yang benar
-import useDarkMode from "../hooks/useDarkMode"; 
+import useDarkMode from "../hooks/useDarkMode";
 
 const menus = [
   { name: "Home", link: "#home" },
@@ -15,74 +14,53 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* ===== SCROLL EFFECT ===== */
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fungsi untuk menutup menu saat item dipilih (hanya untuk mobile)
-  const handleLinkClick = () => {
-    setMenuOpen(false);
-  };
-
   return (
     <nav
       className={`
-        fixed top-0 left-0 w-full z-50
+        fixed top-0 inset-x-0 z-50
+        backdrop-blur-md
         transition-all duration-300
-        ${scrolled ? "py-3 shadow-xl" : "py-5"} /* Mengubah padding saat scroll */
-        bg-white/90 dark:bg-slate-950/90 /* Latar belakang lebih gelap di dark mode */
-        backdrop-blur-sm
-        border-b border-slate-200 dark:border-slate-800
+        ${scrolled ? "h-16 shadow-md" : "h-20"}
+        bg-white/80 dark:bg-slate-900/80
+        border-b border-slate-200/60 dark:border-slate-700/60
       `}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
-        
-        {/* ===== LOGO ===== */}
+      {/* ===== MAIN BAR ===== */}
+      <div className="h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+
+        {/* LOGO */}
         <a
           href="#home"
-          className="
-            text-2xl font-extrabold tracking-tight
-            text-slate-900 dark:text-white
-            drop-shadow-sm
-            dark:drop-shadow-[0_2px_10px_rgba(99,102,241,0.45)]
-            hover:scale-[1.03]
-            transition duration-300
-          "
+          className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100"
         >
-          MyPortfolio
-          <span
-            className="
-              text-indigo-600 dark:text-indigo-400
-              drop-shadow-[0_2px_6px_rgba(99,102,241,0.6)]
-            "
-          >
-            
-          </span>
+          Agung<span className="text-indigo-600 dark:text-indigo-400">.</span>
         </a>
 
-        {/* ===== DESKTOP MENU (Link-link Navigasi) ===== */}
-        <ul className="hidden md:flex gap-10 text-sm font-medium text-slate-600 dark:text-slate-300">
+        {/* DESKTOP MENU */}
+        <ul className="hidden md:flex gap-10 text-sm font-medium">
           {menus.map((menu) => (
             <li key={menu.name}>
               <a
                 href={menu.link}
                 className="
                   relative group
-                  py-1 /* Menambahkan padding y untuk area klik yang lebih baik */
-                  text-base /* Mengubah ukuran teks dari sm ke base */
+                  text-slate-600 dark:text-slate-300
                   hover:text-slate-900 dark:hover:text-white
                   transition
                 "
               >
                 {menu.name}
-                {/* Underline Hover Effect */}
                 <span
                   className="
-                    absolute left-0 -bottom-0.5 /* Posisi underline lebih rendah */
-                    w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400
+                    absolute left-0 -bottom-1
+                    w-0 h-[2px]
+                    bg-indigo-500
                     transition-all duration-300
                     group-hover:w-full
                   "
@@ -92,71 +70,68 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* ===== RIGHT ACTION (Dark Mode & Hamburger) ===== */}
+        {/* ACTIONS */}
         <div className="flex items-center gap-3">
 
-          {/* DARK MODE TOGGLE */}
+          {/* DARK MODE */}
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="
-              w-10 h-10 flex items-center justify-center
-              rounded-full border
-              border-slate-300 dark:border-slate-700
-              bg-white dark:bg-slate-800 /* Warna background default */
-              hover:bg-slate-100 dark:hover:bg-slate-700
-              transition transform hover:scale-105
+              w-11 h-11 rounded-full
+              flex items-center justify-center
+              bg-slate-100 dark:bg-slate-800
+              border border-slate-300 dark:border-slate-600
+              transition
             "
             aria-label="Toggle dark mode"
           >
             {darkMode ? (
-              <FiMoon className="text-white text-lg" />
+              <FiMoon className="text-indigo-400 text-lg" />
             ) : (
-              <FiSun className="text-yellow-500 text-lg" />
+              <FiSun className="text-amber-400 text-lg" />
             )}
           </button>
 
-          {/* HAMBURGER TOGGLE (Mobile Only) */}
+          {/* MOBILE MENU TOGGLE */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="
-              md:hidden
-              w-10 h-10 flex items-center justify-center
-              rounded-full border
-              border-slate-300 dark:border-slate-700
-              bg-white dark:bg-slate-800 /* Warna background default */
-              hover:bg-slate-100 dark:hover:bg-slate-700
+              md:hidden w-11 h-11 rounded-full
+              flex items-center justify-center
+              bg-slate-100 dark:bg-slate-800
+              border border-slate-300 dark:border-slate-600
               transition
             "
             aria-label="Toggle menu"
           >
             {menuOpen ? (
-              <FiX className="text-xl text-slate-800 dark:text-white" />
+              <FiX className="text-xl text-slate-800 dark:text-slate-100" />
             ) : (
-              <FiMenu className="text-xl text-slate-800 dark:text-white" />
+              <FiMenu className="text-xl text-slate-800 dark:text-slate-100" />
             )}
           </button>
-
         </div>
       </div>
 
-      {/* ===== MOBILE MENU (Dropdown) ===== */}
+      {/* ===== MOBILE MENU PANEL ===== */}
       <div
         className={`
-          md:hidden overflow-hidden
-          transition-all duration-300 ease-in-out
-          ${menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
-          bg-white dark:bg-slate-950 /* Latar belakang sama dengan nav bar */
-          border-t border-slate-200 dark:border-slate-800
+          md:hidden
+          absolute top-full inset-x-0
+          bg-white dark:bg-slate-900
+          border-t border-slate-200 dark:border-slate-700
+          transition-all duration-300
+          ${menuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"}
         `}
       >
-        <ul className="flex flex-col items-center py-6 gap-6">
+        <ul className="flex flex-col items-center py-8 gap-6">
           {menus.map((menu) => (
             <li key={menu.name}>
               <a
                 href={menu.link}
-                onClick={handleLinkClick}
+                onClick={() => setMenuOpen(false)}
                 className="
-                  text-lg font-medium /* Teks menu mobile lebih besar */
+                  text-lg font-semibold
                   text-slate-700 dark:text-slate-300
                   hover:text-indigo-600 dark:hover:text-indigo-400
                   transition

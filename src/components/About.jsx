@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -8,25 +7,6 @@ import {
   FaPhp,
 } from "react-icons/fa";
 import { SiTailwindcss, SiLaravel, SiMysql } from "react-icons/si";
-
-/* ===== ANIMATION VARIANTS (Tidak perlu diubah) ===== */
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
 
 const skills = [
   { name: "HTML", icon: FaHtml5, color: "text-orange-500" },
@@ -44,120 +24,103 @@ const About = () => {
   return (
     <section
       id="about"
-      // Mengubah padding vertikal agar konsisten dan membedakan dari Hero
       className="py-20 lg:py-32 bg-slate-100 dark:bg-slate-950"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* ===== TITLE & HEADING ===== */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-16 md:mb-20 text-center" // Centering Judul di Mobile
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+
+        {/* ===== TITLE ===== */}
+        <div className="mb-14 text-center animate-fadeInUp">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3">
             About Me
           </h2>
-          {/* Divider Ungu di tengah */}
-          <div className="w-20 h-1 bg-indigo-600 rounded mx-auto" />
-        </motion.div>
+          <div className="w-16 h-1 bg-indigo-600 rounded mx-auto" />
+        </div>
 
-        {/* ===== CONTENT (GRID) ===== */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          
-          {/* ===== LEFT : ABOUT TEXT & BUTTONS ===== */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="space-y-6" // Menggunakan space-y untuk jarak paragraf yang rapi
-          >
-            <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">
-                Siapa Saya?
+        {/* ===== CONTENT ===== */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
+
+          {/* ===== LEFT ===== */}
+          <div className="space-y-5 text-center lg:text-left animate-fadeInUp [animation-delay:0.2s]">
+            <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white">
+              Siapa Saya?
             </h3>
-            
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-md mx-auto lg:mx-0">
               I am an Informatics student who is passionate about web development,
               especially building modern and scalable applications using
               React, Tailwind CSS, and Laravel.
             </p>
 
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-md mx-auto lg:mx-0">
               I enjoy turning complex problems into simple, beautiful,
-              and intuitive solutions with clean code and good UI/UX. I am constantly
-              learning new technologies to stay current in the fast-paced development landscape.
+              and intuitive solutions with clean code and good UI/UX.
             </p>
 
-            {/* Tombol dipisahkan di luar space-y agar jaraknya ke paragraf lebih terkontrol */}
-            <div className="flex flex-wrap gap-4 pt-4">
-              {/* Tombol Contact Me (Primary Style, konsisten dengan Hero) */}
+            {/* BUTTONS */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
               <a
                 href="#contact"
-                className="px-6 py-3 bg-indigo-600 text-white font-semibold
-                           rounded-lg shadow-md hover:bg-indigo-700 
-                           transition transform hover:scale-105"
+                className="
+                  w-full sm:w-auto
+                  px-6 py-3
+                  bg-indigo-600 text-white font-semibold
+                  rounded-lg shadow-md
+                  hover:bg-indigo-700
+                  transition
+                "
               >
                 Contact Me
               </a>
 
-              {/* Tombol My Projects (Secondary Style, konsisten dengan Hero) */}
               <a
                 href="#projects"
-                className="px-6 py-3 border-2 border-slate-300 dark:border-slate-700
-                           text-slate-700 dark:text-slate-300 font-semibold
-                           rounded-lg hover:border-indigo-600 hover:text-indigo-600
-                           transition transform hover:scale-105"
+                className="
+                  w-full sm:w-auto
+                  px-6 py-3
+                  border-2 border-slate-300 dark:border-slate-700
+                  text-slate-700 dark:text-slate-300 font-semibold
+                  rounded-lg
+                  hover:border-indigo-600 hover:text-indigo-600
+                  transition
+                "
               >
                 My Projects
               </a>
             </div>
-          </motion.div>
+          </div>
 
-          {/* ===== RIGHT : SKILLS GRID ===== */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.h3
-              variants={fadeUp}
-              className="text-2xl font-semibold text-slate-900 dark:text-white mb-6"
-            >
+          {/* ===== RIGHT : SKILLS ===== */}
+          <div className="animate-fadeInUp [animation-delay:0.4s]">
+            <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white mb-5 text-center lg:text-left">
               Technical Skills
-            </motion.h3>
+            </h3>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
-              {/* Grid 3-4 kolom agar fleksibel dan padat */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {skills.map((skill, index) => {
                 const Icon = skill.icon;
                 return (
-                  <motion.div
+                  <div
                     key={index}
-                    variants={fadeUp}
-                    whileHover={{ y: -6, scale: 1.05 }}
-                    // Mengubah latar belakang dan border agar lebih menonjol
                     className="
                       bg-white dark:bg-slate-800
                       border border-slate-200 dark:border-slate-700
-                      rounded-xl px-4 py-6
+                      rounded-xl px-3 py-5
                       flex flex-col items-center gap-2
-                      shadow-lg hover:shadow-indigo-500/10 
-                      transition duration-300 cursor-pointer
+                      shadow-sm
+                      hover:shadow-indigo-500/10
+                      transition
                     "
                   >
-                    {/* Ikon lebih besar */}
-                    <Icon className={`text-5xl ${skill.color}`} /> 
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300 text-center mt-1">
+                    <Icon className={`text-4xl ${skill.color}`} />
+                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
                       {skill.name}
                     </span>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
