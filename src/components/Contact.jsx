@@ -4,28 +4,16 @@ import { FaWhatsapp } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
 import { useState } from "react";
 
-/* ===== ANIMATION ===== */
-const sectionUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 1) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
+    transition: { delay: i * 0.12, duration: 0.6, ease: "easeOut" },
+  }),
 };
 
-const leftIn = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
-const rightIn = leftIn;
-
-const Contact = () => {
+export default function Contact() {
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e) => {
@@ -44,62 +32,53 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-20 lg:py-32 bg-slate-50 dark:bg-slate-900"
+      className="py-28 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6">
 
-        {/* ===== TITLE ===== */}
+        {/* TITLE */}
         <motion.div
-          variants={sectionUp}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-14 text-center"
+          className="mb-20 text-center"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">
             Get In Touch
           </h2>
-          <div className="w-16 h-1 bg-indigo-500 rounded mx-auto" />
+          <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+            Let’s build something meaningful together.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
-          {/* ===== LEFT ===== */}
+          {/* LEFT – INFO */}
           <motion.div
-            variants={leftIn}
+            variants={fadeUp}
+            custom={1}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             className="text-center lg:text-left"
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-              Let’s Connect
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              Let’s Connect 🤝
             </h3>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-md mx-auto lg:mx-0 mb-8 leading-relaxed">
-              I’m open to new projects, collaborations, or just a friendly chat.
-              Reach me via the form or social platforms below.
+            <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed">
+              Open for projects, collaboration, or just a friendly conversation.
+              Reach out via email or social platforms.
             </p>
 
-            {/* SOCIAL ICONS */}
+            {/* SOCIAL BUBBLES */}
             <div className="flex justify-center lg:justify-start gap-4">
               {[
-                {
-                  icon: <FiMail size={18} />,
-                  href: "mailto:muhammadagung2003@gmail.com",
-                },
-                {
-                  icon: <FaWhatsapp size={18} />,
-                  href: "https://wa.me/6281999612344",
-                },
-                {
-                  icon: <FiInstagram size={18} />,
-                  href: "https://instagram.com/mhdgengp",
-                },
-                {
-                  icon: <AiFillTikTok size={18} />,
-                  href: "https://www.tiktok.com/@artgeng5",
-                },
+                { icon: <FiMail />, href: "mailto:muhammadagung2003@gmail.com" },
+                { icon: <FaWhatsapp />, href: "https://wa.me/6281999612344" },
+                { icon: <FiInstagram />, href: "https://instagram.com/mhdgengp" },
+                { icon: <AiFillTikTok />, href: "https://www.tiktok.com/@artgeng5" },
               ].map((item, i) => (
                 <a
                   key={i}
@@ -107,111 +86,135 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
-                    w-11 h-11
+                    group relative
+                    w-12 h-12
                     flex items-center justify-center
                     rounded-full
-                    border border-slate-300 dark:border-slate-600
-                    bg-white dark:bg-slate-800
-                    text-slate-600 dark:text-slate-300
-                    hover:text-indigo-500 hover:border-indigo-500
+                    bg-white/60 dark:bg-slate-900/60
+                    backdrop-blur-xl
+                    border border-white/30 dark:border-slate-700/50
+                    text-slate-700 dark:text-slate-300
+                    shadow-lg
+                    hover:-translate-y-1
+                    hover:text-white
                     transition
                   "
                 >
-                  {item.icon}
+                  <span className="relative z-10 text-lg">{item.icon}</span>
+
+                  {/* glow */}
+                  <span className="
+                    absolute inset-0 rounded-full
+                    bg-gradient-to-r from-indigo-500 to-blue-500
+                    opacity-0 group-hover:opacity-100
+                    blur-lg transition
+                  " />
                 </a>
               ))}
             </div>
           </motion.div>
 
-          {/* ===== FORM ===== */}
+          {/* RIGHT – FORM */}
           <motion.form
             onSubmit={handleSubmit}
-            variants={rightIn}
+            variants={fadeUp}
+            custom={2}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             className="
-              bg-white dark:bg-slate-800
-              border border-slate-200 dark:border-slate-700
-              rounded-2xl
-              p-6 sm:p-8
-              space-y-5
-              w-full max-w-md mx-auto
-              shadow-md
+              relative
+              bg-white/60 dark:bg-slate-900/60
+              backdrop-blur-xl
+              border border-white/30 dark:border-slate-700/40
+              rounded-3xl
+              p-8 sm:p-10
+              max-w-md mx-auto
+              shadow-[0_20px_60px_rgba(0,0,0,0.15)]
             "
           >
-            {[
-              { label: "Name", name: "name", type: "text", placeholder: "Your name" },
-              { label: "Email", name: "email", type: "email", placeholder: "you@email.com" },
-            ].map((field, i) => (
-              <div key={i}>
+            {/* glow */}
+            <div className="
+              absolute -inset-0.5 rounded-3xl
+              bg-gradient-to-r from-indigo-500/30 to-blue-500/30
+              blur-xl opacity-40
+            " />
+
+            <div className="relative space-y-5">
+              {[
+                { label: "Name", name: "name", type: "text", placeholder: "Your name" },
+                { label: "Email", name: "email", type: "email", placeholder: "you@email.com" },
+              ].map((field, i) => (
+                <div key={i}>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    {field.label}
+                  </label>
+                  <input
+                    {...field}
+                    required
+                    className="
+                      w-full px-4 py-3 rounded-xl
+                      bg-white/70 dark:bg-slate-800/70
+                      border border-white/40 dark:border-slate-700
+                      text-sm text-slate-900 dark:text-white
+                      outline-none
+                      focus:ring-2 focus:ring-indigo-500
+                      transition
+                    "
+                  />
+                </div>
+              ))}
+
+              <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  {field.label}
+                  Message
                 </label>
-                <input
-                  {...field}
+                <textarea
+                  name="message"
+                  rows="4"
                   required
+                  placeholder="Write your message..."
                   className="
-                    w-full px-4 py-3 rounded-lg
-                    bg-slate-50 dark:bg-slate-900
-                    border border-slate-300 dark:border-slate-600
-                    text-sm text-slate-900 dark:text-slate-100
-                    focus:border-indigo-500 outline-none
+                    w-full px-4 py-3 rounded-xl
+                    bg-white/70 dark:bg-slate-800/70
+                    border border-white/40 dark:border-slate-700
+                    text-sm text-slate-900 dark:text-white
+                    outline-none resize-none
+                    focus:ring-2 focus:ring-indigo-500
                     transition
                   "
                 />
               </div>
-            ))}
 
-            <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Message
-              </label>
-              <textarea
-                name="message"
-                rows="4"
-                required
-                placeholder="Write your message..."
+              <button
+                type="submit"
                 className="
-                  w-full px-4 py-3 rounded-lg
-                  bg-slate-50 dark:bg-slate-900
-                  border border-slate-300 dark:border-slate-600
-                  text-sm text-slate-900 dark:text-slate-100
-                  focus:border-indigo-500 outline-none
-                  resize-none transition
+                  w-full flex items-center justify-center gap-2
+                  py-3 rounded-xl
+                  font-semibold text-sm text-white
+                  bg-gradient-to-r from-indigo-500 to-blue-500
+                  shadow-lg shadow-indigo-500/40
+                  hover:scale-[1.03]
+                  transition
                 "
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="
-                w-full flex items-center justify-center gap-2
-                py-3 rounded-lg
-                font-semibold text-sm
-                bg-indigo-500 text-white
-                hover:bg-indigo-400
-                transition
-              "
-            >
-              <FiSend size={16} />
-              Send Message
-            </button>
-
-            {success && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-500 text-xs text-center"
               >
-                ✅ Email client opened successfully
-              </motion.p>
-            )}
+                <FiSend />
+                Send Message
+              </button>
+
+              {success && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-green-500 text-xs text-center"
+                >
+                  ✅ Email client opened successfully
+                </motion.p>
+              )}
+            </div>
           </motion.form>
         </div>
       </div>
     </section>
   );
-};
-
-export default Contact;
+}

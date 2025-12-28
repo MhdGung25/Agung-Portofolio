@@ -23,10 +23,19 @@ const projects = [
     title: "Digital Notes",
     description:
       "A web application for creating, organizing, and managing digital notes with user authentication.",
-    tech: ["React", "Tailwind CSS", "JavaScript", "Firebase"],
+    tech: ["React", "Tailwind CSS", "Firebase"],
     image: "/projects/digital-notes.jpg",
     demo: "https://rect-firebase.netlify.app/",
     github: "https://github.com/MhdGung25/rect-firebase.git",
+  },
+  {
+    title: "Catatan Warung",
+    description:
+      ".",
+    tech: ["React" ,"js", "Tailwind CSS", "Firebase"],
+    image: "/projects/catatan-warung.jpg",
+    demo: "https://catatan-warung.netlify.app/",
+    github: "https://github.com/MhdGung25/catatan-warung.git",
   },
 ];
 
@@ -35,11 +44,7 @@ const fadeUp = {
   visible: (i = 1) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: i * 0.12,
-      duration: 0.6,
-      ease: "easeOut",
-    },
+    transition: { delay: i * 0.12, duration: 0.6, ease: "easeOut" },
   }),
 };
 
@@ -47,9 +52,9 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-20 md:py-28 bg-slate-50 dark:bg-slate-900 transition-colors"
+      className="py-24 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6">
 
         {/* TITLE */}
         <motion.div
@@ -57,16 +62,18 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-14 text-center lg:text-left"
+          className="mb-20 text-center"
         >
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-slate-100 mb-4">
-            Featured Projects
+          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">
+            Selected Projects
           </h2>
-          <div className="w-20 h-1.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded mx-auto lg:mx-0" />
+          <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+            Crafted with clean architecture, smooth interactions, and modern UI principles.
+          </p>
         </motion.div>
 
         {/* GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -75,38 +82,53 @@ export default function Projects() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -10 }}
               className="
-                group flex flex-col overflow-hidden rounded-2xl
-                bg-white dark:bg-slate-800
-                border border-slate-200 dark:border-slate-700
-                shadow-md dark:shadow-none
-                hover:shadow-2xl hover:shadow-indigo-500/20
-                dark:hover:shadow-indigo-400/10
+                relative group rounded-3xl
+                bg-white/60 dark:bg-slate-900/60
+                backdrop-blur-xl
+                border border-white/30 dark:border-slate-700/40
+                shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+                dark:shadow-[0_20px_60px_rgba(99,102,241,0.15)]
                 transition-all duration-500
               "
             >
-              {/* IMAGE */}
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="
-                    w-full h-full object-cover
-                    transition-transform duration-700
-                    group-hover:scale-110
-                  "
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition" />
-              </div>
+              {/* GLOW */}
+              <div className="
+                absolute -inset-0.5 rounded-3xl
+                bg-gradient-to-r from-indigo-500/30 to-blue-500/30
+                opacity-0 group-hover:opacity-100
+                blur-xl transition
+              " />
 
               {/* CONTENT */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
+              <div className="relative p-6 flex flex-col h-full">
+
+                {/* IMAGE */}
+                <div className="relative mb-6">
+                  <div className="
+                    rounded-2xl overflow-hidden
+                    ring-1 ring-white/30
+                    shadow-lg
+                  ">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="
+                        w-full aspect-[16/10] object-cover
+                        transition-transform duration-700
+                        group-hover:scale-105
+                      "
+                    />
+                  </div>
+                </div>
+
+                {/* TEXT */}
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                   {project.title}
                 </h3>
 
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
                   {project.description}
                 </p>
 
@@ -116,10 +138,10 @@ export default function Projects() {
                     <span
                       key={i}
                       className="
-                        text-[11px] px-3 py-1 rounded-full font-semibold
-                        bg-indigo-500/10 text-indigo-600
-                        dark:bg-indigo-400/10 dark:text-indigo-300
-                        border border-indigo-500/20
+                        px-3 py-1 text-[11px] font-semibold rounded-full
+                        bg-white/70 dark:bg-slate-800/70
+                        border border-white/40 dark:border-slate-700
+                        text-slate-700 dark:text-slate-300
                       "
                     >
                       {item}
@@ -128,24 +150,23 @@ export default function Projects() {
                 </div>
 
                 {/* ACTIONS */}
-                <div className="mt-auto flex flex-col sm:flex-row gap-3">
+                <div className="mt-auto flex gap-3">
                   {project.demo && (
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="
-                        inline-flex items-center justify-center gap-2
+                        flex-1 inline-flex items-center justify-center gap-2
                         px-4 py-2 rounded-xl
-                        text-sm font-semibold
-                        bg-indigo-600 text-white
-                        hover:bg-indigo-500
-                        shadow-lg shadow-indigo-500/30
-                        transition
+                        text-sm font-semibold text-white
+                        bg-gradient-to-r from-indigo-500 to-blue-500
+                        shadow-lg shadow-indigo-500/40
+                        hover:scale-[1.03] transition
                       "
                     >
-                      <FiExternalLink className="text-base" />
-                      Live Demo
+                      <FiExternalLink />
+                      Live
                     </a>
                   )}
 
@@ -154,20 +175,21 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-                      inline-flex items-center justify-center gap-2
+                      flex-1 inline-flex items-center justify-center gap-2
                       px-4 py-2 rounded-xl
                       text-sm font-semibold
-                      border border-slate-300 dark:border-slate-600
-                      text-slate-700 dark:text-slate-300
-                      hover:border-indigo-500 hover:text-indigo-500
-                      dark:hover:border-indigo-400 dark:hover:text-indigo-400
+                      bg-white/60 dark:bg-slate-800/60
+                      border border-white/40 dark:border-slate-700
+                      text-slate-800 dark:text-slate-300
+                      hover:text-indigo-500
                       transition
                     "
                   >
-                    <FiGithub className="text-base" />
-                    GitHub
+                    <FiGithub />
+                    Code
                   </a>
                 </div>
+
               </div>
             </motion.div>
           ))}

@@ -1,149 +1,153 @@
 import { useState, useEffect } from "react";
-import { FiMenu, FiX, FiMoon, FiSun } from "react-icons/fi";
+import { FiMoon, FiSun } from "react-icons/fi";
+import {
+  FiHome,
+  FiUser,
+  FiFolder,
+  FiMail
+} from "react-icons/fi";
 import useDarkMode from "../hooks/useDarkMode";
 
 const menus = [
-  { name: "Home", link: "#home" },
-  { name: "About", link: "#about" },
-  { name: "Projects", link: "#projects" },
-  { name: "Contact", link: "#contact" },
+  { name: "Home", link: "#home", icon: FiHome },
+  { name: "About", link: "#about", icon: FiUser },
+  { name: "Projects", link: "#projects", icon: FiFolder },
+  { name: "Contact", link: "#contact", icon: FiMail },
 ];
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useDarkMode();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <nav
-      className={`
-        fixed top-0 inset-x-0 z-50
-        backdrop-blur-md
-        transition-all duration-300
-        ${scrolled ? "h-16 shadow-md" : "h-20"}
-        bg-white/80 dark:bg-slate-900/80
-        border-b border-slate-200/60 dark:border-slate-700/60
-      `}
-    >
-      {/* ===== MAIN BAR ===== */}
-      <div className="h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
-
-        {/* LOGO */}
-        <a
-          href="#home"
-          className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100"
+    <>
+      {/* ================= DESKTOP NAVBAR ================= */}
+      <nav className="hidden md:flex fixed top-4 inset-x-0 z-50 justify-center px-4">
+        <div
+          className={`
+            w-full max-w-6xl
+            h-16 px-6
+            flex items-center justify-between
+            rounded-2xl
+            backdrop-blur-xl
+            border border-white/30 dark:border-slate-700/50
+            transition-all duration-500
+            ${
+              scrolled
+                ? "bg-white/80 dark:bg-slate-900/80 shadow-xl"
+                : "bg-white/60 dark:bg-slate-900/60 shadow-lg"
+            }
+          `}
         >
-          Agung<span className="text-indigo-600 dark:text-indigo-400">.</span>
-        </a>
+          {/* LOGO */}
+          <a
+            href="#home"
+            className="text-xl font-semibold text-slate-900 dark:text-white"
+          >
+            Agung<span className="text-indigo-500">.</span>
+          </a>
 
-        {/* DESKTOP MENU */}
-        <ul className="hidden md:flex gap-10 text-sm font-medium">
-          {menus.map((menu) => (
-            <li key={menu.name}>
-              <a
-                href={menu.link}
-                className="
-                  relative group
-                  text-slate-600 dark:text-slate-300
-                  hover:text-slate-900 dark:hover:text-white
-                  transition
-                "
-              >
-                {menu.name}
-                <span
-                  className="
-                    absolute left-0 -bottom-1
-                    w-0 h-[2px]
-                    bg-indigo-500
-                    transition-all duration-300
-                    group-hover:w-full
-                  "
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* ACTIONS */}
-        <div className="flex items-center gap-3">
+          {/* MENU */}
+          <ul className="flex items-center gap-2">
+            {menus.map((menu) => {
+              const Icon = menu.icon;
+              return (
+                <li key={menu.name}>
+                  <a
+                    href={menu.link}
+                    className="
+                      flex items-center gap-2
+                      px-4 py-2
+                      rounded-full
+                      text-sm font-medium
+                      text-slate-700 dark:text-slate-300
+                      hover:bg-indigo-500 hover:text-white
+                      transition-all duration-300
+                      hover:-translate-y-0.5
+                    "
+                  >
+                    <Icon className="text-lg" />
+                    {menu.name}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
 
           {/* DARK MODE */}
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="
-              w-11 h-11 rounded-full
+              w-10 h-10 rounded-full
               flex items-center justify-center
-              bg-slate-100 dark:bg-slate-800
-              border border-slate-300 dark:border-slate-600
-              transition
+              bg-white/70 dark:bg-slate-800/70
+              border border-white/40 dark:border-slate-700
+              backdrop-blur
+              hover:scale-105 transition
             "
-            aria-label="Toggle dark mode"
           >
             {darkMode ? (
-              <FiMoon className="text-indigo-400 text-lg" />
+              <FiMoon className="text-indigo-400" />
             ) : (
-              <FiSun className="text-amber-400 text-lg" />
-            )}
-          </button>
-
-          {/* MOBILE MENU TOGGLE */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="
-              md:hidden w-11 h-11 rounded-full
-              flex items-center justify-center
-              bg-slate-100 dark:bg-slate-800
-              border border-slate-300 dark:border-slate-600
-              transition
-            "
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? (
-              <FiX className="text-xl text-slate-800 dark:text-slate-100" />
-            ) : (
-              <FiMenu className="text-xl text-slate-800 dark:text-slate-100" />
+              <FiSun className="text-amber-400" />
             )}
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* ===== MOBILE MENU PANEL ===== */}
-      <div
-        className={`
-          md:hidden
-          absolute top-full inset-x-0
-          bg-white dark:bg-slate-900
-          border-t border-slate-200 dark:border-slate-700
-          transition-all duration-300
-          ${menuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"}
-        `}
-      >
-        <ul className="flex flex-col items-center py-8 gap-6">
-          {menus.map((menu) => (
-            <li key={menu.name}>
-              <a
-                href={menu.link}
-                onClick={() => setMenuOpen(false)}
-                className="
-                  text-lg font-semibold
-                  text-slate-700 dark:text-slate-300
-                  hover:text-indigo-600 dark:hover:text-indigo-400
-                  transition
-                "
-              >
-                {menu.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+      {/* ================= MOBILE BOTTOM NAVBAR ================= */}
+      <nav className="md:hidden fixed bottom-4 inset-x-0 z-50 px-4">
+        <div
+          className="
+            mx-auto max-w-md
+            bg-white/80 dark:bg-slate-900/80
+            backdrop-blur-xl
+            border border-white/30 dark:border-slate-700/50
+            rounded-2xl
+            shadow-2xl
+          "
+        >
+          <ul className="flex justify-around items-center py-3">
+            {menus.map((menu) => {
+              const Icon = menu.icon;
+              return (
+                <li key={menu.name}>
+                  <a
+                    href={menu.link}
+                    className="
+                      flex flex-col items-center gap-1
+                      text-xs font-medium
+                      text-slate-700 dark:text-slate-300
+                      hover:text-indigo-500
+                      transition
+                    "
+                  >
+                    <span
+                      className="
+                        w-10 h-10
+                        flex items-center justify-center
+                        rounded-full
+                        bg-white/60 dark:bg-slate-800/60
+                        shadow-md
+                      "
+                    >
+                      <Icon className="text-lg" />
+                    </span>
+                    {menu.name}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 
