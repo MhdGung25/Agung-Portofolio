@@ -34,7 +34,7 @@ const projects = [
     "A simple and responsive web application for recording daily income and expenses of small businesses (warung). Built to help UMKM manage finances efficiently with a clean UI and real-time data storage.",
   tech: ["React", "JavaScript", "Tailwind CSS", "Firebase"],
   image: "/projects/catatan-warung.jpg",
-  demo: "https://catatan-warung.netlify.app/",
+  demo: "https://catatan-warung.vercel.app/",
   github: "https://github.com/MhdGung25/catatan-warung.git",
 },
 
