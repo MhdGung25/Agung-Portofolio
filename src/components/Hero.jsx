@@ -1,97 +1,127 @@
-import React from 'react';
+import React from "react";
+import { motion } from "framer-motion";
+import { FiArrowRight, } from "react-icons/fi";
 
-const Hero = ({ isDarkMode }) => {
-  // Catatan: Prop 'isDarkMode' bisa dikirim dari Parent (App.js) 
-  // agar sinkron dengan Navbar. Jika kamu hanya pakai class 'dark' di <html>, 
-  // kamu tidak butuh prop ini, cukup gunakan Tailwind dark: modifier.
-
+const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-700 ease-in-out bg-slate-50 dark:bg-[#0a0f1d] px-6 py-20 lg:py-0"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-700 px-6 py-24 lg:py-0"
     >
-      {/* BACKGROUND ORBS - Menggunakan class dark: agar sinkron dengan Navbar */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full blur-[120px] animate-pulse transition-all duration-1000 bg-indigo-400/20 dark:bg-indigo-600/20" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full blur-[100px] transition-all duration-1000 bg-purple-400/10 dark:bg-purple-600/10" />
+      {/* BACKGROUND ORBS - Animasi halus di latar belakang */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.15, 0.25, 0.15] 
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute top-[-10%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full blur-[120px] bg-indigo-500/30" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1] 
+          }}
+          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+          className="absolute bottom-[-10%] right-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full blur-[100px] bg-purple-500/20" 
+        />
+      </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        
-        {/* ===== AVATAR ===== */}
-        <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-          <div className="relative group">
-            {/* Glow effect yang menyesuaikan mode */}
-            <div className="absolute -inset-1 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 bg-gradient-to-tr from-indigo-500 to-purple-600" />
-            
-            <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-[400px] lg:h-[400px] animate-float">
-              <div className="absolute inset-0 rounded-full p-[3px] bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-400">
-                <div className="w-full h-full rounded-full p-2 transition-colors duration-700 bg-white dark:bg-[#0a0f1d]">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+          
+          {/* ===== LEFT: TEXT CONTENT ===== */}
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left order-2 lg:order-1"
+          >
+            {/* BADGE */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 mb-8"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              </span>
+              <span className="text-xs md:text-sm font-bold tracking-wide uppercase">Open for Collaboration</span>
+            </motion.div>
+
+            {/* MAIN HEADING */}
+            <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6">
+              Hi, I'm <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-blue-500 animate-gradient">
+                Agung Pamungkas
+              </span>
+            </h1>
+
+            {/* DESCRIPTION */}
+            <p className="max-w-xl mx-auto lg:mx-0 text-base md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 font-medium">
+              A passionate <span className="text-slate-900 dark:text-slate-100 font-bold underline decoration-indigo-500/30">Informatics Student</span> and Web Developer specialized in crafting 
+              exceptional digital experiences with React & Laravel.
+            </p>
+
+            {/* BUTTONS GROUP */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <a
+                href="#projects"
+                className="group w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-indigo-600 text-white font-bold shadow-xl shadow-indigo-500/25 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300"
+              >
+                View Projects
+                <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* ===== RIGHT: AVATAR SECTION ===== */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="flex justify-center lg:justify-end order-1 lg:order-2"
+          >
+            <div className="relative">
+              {/* Decorative Rings */}
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-indigo-500/20 animate-[spin_20s_linear_infinite]" />
+              <div className="absolute -inset-4 rounded-full border border-purple-500/10 animate-[spin_15s_linear_infinite_reverse]" />
+
+              {/* Main Profile Image Container */}
+              <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-[450px] lg:h-[450px]">
+                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-purple-500 to-blue-400 rounded-[3rem] rotate-6 opacity-20 group-hover:rotate-12 transition-transform duration-500" />
+                
+                <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden border-2 border-white dark:border-slate-800 shadow-2xl animate-float">
                   <img
-                    src="/profile.jpg" 
-                    alt="Muhammad Agung Pamungkas"
-                    className="rounded-full w-full h-full object-cover transition-all duration-700 grayscale-0 dark:grayscale-[20%] dark:hover:grayscale-0"
+                    src="/profile.jpg" // Pastikan file ada di folder public
+                    alt="Profile"
+                    className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500 scale-110 hover:scale-100"
                   />
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
 
-        {/* ===== TEXT CONTENT ===== */}
-        <div className="order-2 lg:order-1 text-center lg:text-left space-y-6">
-          {/* BADGE */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border backdrop-blur-md transition-all duration-700 bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-400">
-            <span className="text-sm font-semibold dark:font-medium">👋 Hello, I’m</span>
-          </div>
-
-          {/* NAME */}
-          <div className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] transition-colors duration-700 text-slate-900 dark:text-white">
-              Muhammad Agung <br />
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-                Pamungkas
-              </span>
-            </h1>
-          </div>
-
-          {/* ROLE & DESCRIPTION */}
-          <div className="space-y-4 max-w-xl mx-auto lg:mx-0">
-            <h2 className="text-xl lg:text-2xl font-semibold transition-colors duration-700 text-slate-700 dark:text-slate-200">
-              Informatics Student <span className="text-indigo-500 px-2">&bull;</span> 
-              <span className="text-indigo-600 dark:text-indigo-400">Web Developer</span>
-            </h2>
-            <p className="text-base lg:text-lg leading-relaxed font-light transition-colors duration-700 text-slate-600 dark:text-slate-400">
-              I design and build modern web applications with a strong focus on 
-              <span className="font-medium text-slate-900 dark:text-slate-200"> clean architecture</span>, 
-              smooth interactions, and intuitive user experiences.
-            </p>
-          </div>
-
-          {/* CALL TO ACTION */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-            <a
-              href="#projects"
-              className="px-8 py-4 rounded-2xl bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-500 hover:-translate-y-1 transition-all duration-300 text-center"
-            >
-              View Projects
-            </a>
-
-            <a
-              href="#contact"
-              className="px-8 py-4 rounded-2xl border font-semibold backdrop-blur-sm hover:-translate-y-1 transition-all duration-300 text-center bg-white border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10"
-            >
-              Contact Me
-            </a>
-          </div>
         </div>
       </div>
 
       <style jsx>{`
-        .animate-float {
-          animation: float 5s ease-in-out infinite;
-        }
         @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-gradient {
+          background-size: 200% auto;
+          animation: gradient 4s linear infinite;
+        }
+        @keyframes gradient {
+          to { background-position: 200% center; }
         }
       `}</style>
     </section>

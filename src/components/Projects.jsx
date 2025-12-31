@@ -16,36 +16,35 @@ const projects = [
       "A decentralized marketplace for buying and selling ebooks using blockchain technology.",
     tech: ["React", "Metamask", "Tailwind CSS"],
     image: "/projects/Ebook-blockhain.jpg",
-    demo: "https://sastradesentral.netlify.app/",
+    demo: "https://sastra-desentral.vercel.app/",
     github: "https://github.com/MhdGung25/Sastra-Desentral.git",
   },
   {
-    title: "Digital Notes",
+    title: "Catatan Digital",
     description:
       "A web application for creating, organizing, and managing digital notes with user authentication.",
     tech: ["React", "Tailwind CSS", "Firebase"],
-    image: "/projects/digital-notes.jpg",
-    demo: "https://rect-firebase.netlify.app/",
+    image: "/projects/Catatan-Digital.jpg",
+    demo: "https://rect-firebase.vercel.app/",
     github: "https://github.com/MhdGung25/rect-firebase.git",
   },
- {
-  title: "Catatan Warung",
-  description:
-    "A simple and responsive web application for recording daily income and expenses of small businesses (warung). Built to help UMKM manage finances efficiently with a clean UI and real-time data storage.",
-  tech: ["React", "JavaScript", "Tailwind CSS", "Firebase"],
-  image: "/projects/catatan-warung.jpg",
-  demo: "https://catatan-warung.vercel.app/",
-  github: "https://github.com/MhdGung25/catatan-warung.git",
-},
-
+  {
+    title: "Warung Digital",
+    description:
+      "A simple and responsive web application for recording daily income and expenses of small businesses (warung). Built to help UMKM manage finances efficiently.",
+    tech: ["React", "JavaScript", "Tailwind CSS", "Firebase"],
+    image: "/projects/Warung-Digital.jpg",
+    demo: "https://catatan-warung.vercel.app/",
+    github: "https://github.com/MhdGung25/catatan-warung.git",
+  },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: (i = 1) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
   }),
 };
 
@@ -53,28 +52,29 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950"
+      className="py-20 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950"
     >
-      <div className="max-w-7xl mx-auto px-6">
-
+      <div className="max-w-7xl mx-auto px-5">
+        
         {/* TITLE */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-20 text-center"
+          className="mb-16 text-center"
         >
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">
             Selected Projects
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+          <div className="w-16 h-1 bg-indigo-500 mx-auto mb-6 rounded-full"></div>
+          <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm md:text-base">
             Crafted with clean architecture, smooth interactions, and modern UI principles.
           </p>
         </motion.div>
 
         {/* GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -83,66 +83,57 @@ export default function Projects() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -8 }}
               className="
-                relative group rounded-3xl
-                bg-white/60 dark:bg-slate-900/60
-                backdrop-blur-xl
-                border border-white/30 dark:border-slate-700/40
-                shadow-[0_20px_60px_rgba(0,0,0,0.12)]
-                dark:shadow-[0_20px_60px_rgba(99,102,241,0.15)]
-                transition-all duration-500
+                relative group rounded-[2rem] flex flex-col h-full
+                bg-white dark:bg-slate-900
+                border border-slate-200 dark:border-slate-800
+                shadow-xl shadow-slate-200/50 dark:shadow-none
+                overflow-hidden transition-all duration-300
               "
             >
-              {/* GLOW */}
-              <div className="
-                absolute -inset-0.5 rounded-3xl
-                bg-gradient-to-r from-indigo-500/30 to-blue-500/30
-                opacity-0 group-hover:opacity-100
-                blur-xl transition
-              " />
+              {/* IMAGE CONTAINER - PERBAIKAN UTAMA DISINI */}
+              <div className="relative p-3">
+                <div className="
+                  relative overflow-hidden rounded-2xl
+                  bg-slate-100 dark:bg-slate-800
+                  aspect-[16/10] md:aspect-video
+                  ring-1 ring-slate-200 dark:ring-slate-700
+                ">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="
+                      w-full h-full 
+                      object-contain md:object-cover 
+                      group-hover:scale-105 transition-transform duration-500
+                    "
+                  />
+                  {/* Overlay shadow untuk memperjelas gambar */}
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                </div>
+              </div>
 
               {/* CONTENT */}
-              <div className="relative p-6 flex flex-col h-full">
-
-                {/* IMAGE */}
-                <div className="relative mb-6">
-                  <div className="
-                    rounded-2xl overflow-hidden
-                    ring-1 ring-white/30
-                    shadow-lg
-                  ">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="
-                        w-full aspect-[16/10] object-cover
-                        transition-transform duration-700
-                        group-hover:scale-105
-                      "
-                    />
-                  </div>
-                </div>
-
-                {/* TEXT */}
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+              <div className="flex flex-col flex-1 p-6 pt-2">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-500 transition-colors">
                   {project.title}
                 </h3>
 
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5 line-clamp-3">
                   {project.description}
                 </p>
 
-                {/* TECH */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                {/* TECH TAGS */}
+                <div className="flex flex-wrap gap-1.5 mb-6">
                   {project.tech.map((item, i) => (
                     <span
                       key={i}
                       className="
-                        px-3 py-1 text-[11px] font-semibold rounded-full
-                        bg-white/70 dark:bg-slate-800/70
-                        border border-white/40 dark:border-slate-700
-                        text-slate-700 dark:text-slate-300
+                        px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md
+                        bg-slate-100 dark:bg-slate-800
+                        text-slate-600 dark:text-slate-400
+                        border border-slate-200 dark:border-slate-700
                       "
                     >
                       {item}
@@ -159,11 +150,11 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="
                         flex-1 inline-flex items-center justify-center gap-2
-                        px-4 py-2 rounded-xl
-                        text-sm font-semibold text-white
-                        bg-gradient-to-r from-indigo-500 to-blue-500
-                        shadow-lg shadow-indigo-500/40
-                        hover:scale-[1.03] transition
+                        px-4 py-2.5 rounded-xl
+                        text-xs font-bold uppercase tracking-widest text-white
+                        bg-indigo-600 hover:bg-indigo-700
+                        shadow-lg shadow-indigo-500/30
+                        active:scale-95 transition-all
                       "
                     >
                       <FiExternalLink />
@@ -177,20 +168,19 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="
                       flex-1 inline-flex items-center justify-center gap-2
-                      px-4 py-2 rounded-xl
-                      text-sm font-semibold
-                      bg-white/60 dark:bg-slate-800/60
-                      border border-white/40 dark:border-slate-700
-                      text-slate-800 dark:text-slate-300
-                      hover:text-indigo-500
-                      transition
+                      px-4 py-2.5 rounded-xl
+                      text-xs font-bold uppercase tracking-widest
+                      bg-slate-100 dark:bg-slate-800
+                      text-slate-800 dark:text-slate-200
+                      border border-slate-200 dark:border-slate-700
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      active:scale-95 transition-all
                     "
                   >
                     <FiGithub />
                     Code
                   </a>
                 </div>
-
               </div>
             </motion.div>
           ))}
